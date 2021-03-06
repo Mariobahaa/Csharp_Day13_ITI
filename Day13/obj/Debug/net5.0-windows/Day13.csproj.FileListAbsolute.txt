@@ -35,3 +35,4 @@ E:\My Programs\ITIC#\Day13\Day13\bin\Debug\net5.0-windows\runtimes\win-x64\nativ
 E:\My Programs\ITIC#\Day13\Day13\bin\Debug\net5.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 E:\My Programs\ITIC#\Day13\Day13\bin\Debug\net5.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\My Programs\ITIC#\Day13\Day13\obj\Debug\net5.0-windows\Day13.csproj.CopyComplete
+E:\My Programs\ITIC#\Day13\Day13\obj\Debug\net5.0-windows\Day13.csprojAssemblyReference.cache

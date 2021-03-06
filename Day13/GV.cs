@@ -31,6 +31,12 @@ namespace Day13
             DT = new DataTable();
             DA.Fill(DT);
             DGV.DataSource = DT;
+            //DataGridViewCo
+            //DGV.Columns["pub_id"].Visible = false;
+            DGV.Columns["title_id"].ReadOnly = true;
+            DGV.Columns["pub_id"].DataPropertyName = "pub_name";
+            //DGV.Columns["pub_id"].CellType = Type.of DataGridViewComboBoxCell();
+            DGV.Columns["pub_name"].Visible = false;
 
         }
     }
