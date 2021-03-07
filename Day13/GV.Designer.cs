@@ -52,6 +52,7 @@ namespace Day13
             this.btnGVSave.TabIndex = 2;
             this.btnGVSave.Text = "Save";
             this.btnGVSave.UseVisualStyleBackColor = true;
+            this.btnGVSave.Click += new System.EventHandler(this.btnGVSave_Click);
             // 
             // GV
             // 
