@@ -17,6 +17,10 @@ namespace Day13
         SqlCommand cmd;
         SqlDataAdapter DA;
         DataTable DT;
+
+        SqlCommand tcmd;
+        SqlDataAdapter tDA;
+        DataTable tDT;
         public GV()
         {
             InitializeComponent();
@@ -25,60 +29,120 @@ namespace Day13
         private void GV_Load(object sender, EventArgs e)
         {
             conn = new SqlConnection(CString);
-            //cmd = new SqlCommand("select T.*, P.pub_name " +
-            //      "from titles T inner join publishers P " +
-            //      "on T.pub_id = P.pub_id;",conn);
-            cmd = new SqlCommand("select * from publishers", conn);
+            cmd = new SqlCommand("select * from titles", conn);
             DA = new SqlDataAdapter(cmd);
             DT = new DataTable();
             DA.Fill(DT);
             DGV.DataSource = DT;
 
-            DGV.Columns["title_id"].ReadOnly = true;
-            DGV.Columns["pub_id"].DataPropertyName = "pub_name";
-            DGV.Columns["pub_id"].ReadOnly = true;
 
-            DGV.Columns["pub_name"].Visible = false;
+            tcmd = new SqlCommand("select pub_id pid, pub_name  from publishers ", conn);
+            tDA = new SqlDataAdapter(tcmd);
+            tDT = new DataTable();
+            tDA.Fill(tDT);
 
-            DA.InsertCommand = new SqlCommand("Insert into titles values " +
-                        "(@a, @b, @c, @d, @e, @f, @g, @h, @i, @j)");
+            DataGridViewComboBoxColumn CBC = new DataGridViewComboBoxColumn();
+            CBC.DataSource = tDT;
+            CBC.HeaderText = "Publisher";
+            CBC.DataPropertyName = "pub_id";
+            CBC.ValueMember = "pid";
+            CBC.DisplayMember = "pub_name";
 
-            DA.DeleteCommand = new SqlCommand("Delete from titles where title_id = @tid");
+            DGV.Columns.Add(CBC);
 
-            //DA.UpdateCommand = new SqlCommand("Update titles set ")
-
-            //DGV.Columns["pub_id"].Visible = false;
-            ////DGV.Columns["pub_id"].CellType = Type.of DataGridViewComboBoxCell();
+            DGV.Columns["pub_id"].Visible = false;
         }
 
+
+        
+        SqlCommand updateCommand;
+        SqlDataAdapter SaveDA;
+        
         private void btnGVSave_Click(object sender, EventArgs e)
         {
 
             foreach (DataRow dr in DT.Rows)
             {
-                if (dr.RowState == DataRowState.Added)
+                //Trace.WriteLine("ID: " + dr["pub_id"]);
+                if(dr.RowState == DataRowState.Added)
                 {
-                   
-                    DT.AcceptChanges();
-                    DA.Update(DT);
+                    updateCommand = new SqlCommand("insert into titles values(@a, @b, @c, @d, @e, @f, @g, @h, @i, @j)", conn);
+                    //insertCommand.CommandType = CommandType.StoredProcedure;
+                    updateCommand.Parameters.Add("@a", SqlDbType.VarChar);
+                    updateCommand.Parameters["@a"].Value = dr["title_id"];
+                    updateCommand.Parameters.Add("@b", SqlDbType.VarChar);
+                    updateCommand.Parameters["@b"].Value = dr["title"];
+                    updateCommand.Parameters.Add("@c", SqlDbType.Char);
+                    updateCommand.Parameters["@c"].Value = dr["type"];
+                    updateCommand.Parameters.Add("@d", SqlDbType.Char);
+                    updateCommand.Parameters["@d"].Value = dr["pub_id"];
+                    updateCommand.Parameters.Add("@e", SqlDbType.Money);
+                    updateCommand.Parameters["@e"].Value = dr["price"];
+                    updateCommand.Parameters.Add("@f", SqlDbType.Money);
+                    updateCommand.Parameters["@f"].Value = dr["advance"];
+                    updateCommand.Parameters.Add("@g", SqlDbType.Int);
+                    updateCommand.Parameters["@g"].Value = dr["royalty"];
+                    updateCommand.Parameters.Add("@h", SqlDbType.Int);
+                    updateCommand.Parameters["@h"].Value = dr["ytd_sales"];
+                    updateCommand.Parameters.Add("@i", SqlDbType.VarChar);
+                    updateCommand.Parameters["@i"].Value = dr["notes"];
+                    updateCommand.Parameters.Add("@j", SqlDbType.DateTime);
+                    updateCommand.Parameters["@j"].Value = dr["pubdate"];
+
+                    SaveDA = new SqlDataAdapter(updateCommand);
+                    SaveDA.InsertCommand = updateCommand;
+                    SaveDA.Update(DT);
+
+
                 }
-                else if (dr.RowState == DataRowState.Modified)
+                else if(dr.RowState == DataRowState.Modified)
                 {
-                    
-                    DT.AcceptChanges();
-                    DA.Update(DT);
-                }
-                else if (dr.RowState == DataRowState.Deleted)
-                {
-                    
-                    DT.AcceptChanges();
-                    DA.Update(DT);
+                    updateCommand =
+                    new SqlCommand("update titles " +
+                    " set[title] = @b, [type] = @c, [pub_id] = @d,[price] = @e, " +
+                    " [advance] = @f, [royalty] = @g, [ytd_sales] = @h, " +
+                    " [notes] = @i, [pubdate] = @j " +
+                    " where[title_id] = @a", conn);
+                    //insertCommand.CommandType = CommandType.StoredProcedure;
+                    updateCommand.Parameters.Add("@a", SqlDbType.VarChar);
+                    updateCommand.Parameters["@a"].Value = dr["title_id"];
+                    updateCommand.Parameters.Add("@b", SqlDbType.VarChar);
+                    updateCommand.Parameters["@b"].Value = dr["title"];
+                    updateCommand.Parameters.Add("@c", SqlDbType.Char);
+                    updateCommand.Parameters["@c"].Value = dr["type"];
+                    updateCommand.Parameters.Add("@d", SqlDbType.Char);
+                    updateCommand.Parameters["@d"].Value = dr["pub_id"];
+                    updateCommand.Parameters.Add("@e", SqlDbType.Money);
+                    updateCommand.Parameters["@e"].Value = dr["price"];
+                    updateCommand.Parameters.Add("@f", SqlDbType.Money);
+                    updateCommand.Parameters["@f"].Value = dr["advance"];
+                    updateCommand.Parameters.Add("@g", SqlDbType.Int);
+                    updateCommand.Parameters["@g"].Value = dr["royalty"];
+                    updateCommand.Parameters.Add("@h", SqlDbType.Int);
+                    updateCommand.Parameters["@h"].Value = dr["ytd_sales"];
+                    updateCommand.Parameters.Add("@i", SqlDbType.VarChar);
+                    updateCommand.Parameters["@i"].Value = dr["notes"];
+                    updateCommand.Parameters.Add("@j", SqlDbType.DateTime);
+                    updateCommand.Parameters["@j"].Value = dr["pubdate"];
+
+                    SaveDA = new SqlDataAdapter(updateCommand);
+                    SaveDA.UpdateCommand = updateCommand;
+                    SaveDA.Update(DT);
                 }
 
+                else if(dr.RowState == DataRowState.Deleted)
+                {
+                    updateCommand =
+                       new SqlCommand("delete from titles where title_id = @a", conn);
+                    updateCommand.Parameters.Add("@a", SqlDbType.VarChar);
+                    updateCommand.Parameters["@a"].Value = dr["title_id"];
+
+                    SaveDA = new SqlDataAdapter(updateCommand);
+                    SaveDA.DeleteCommand = updateCommand;
+                    SaveDA.Update(DT);
+                }
             }
 
-           //
-           
             
         }
     }
