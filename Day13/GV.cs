@@ -36,7 +36,7 @@ namespace Day13
             DGV.DataSource = DT;
 
 
-            tcmd = new SqlCommand("select pub_id pid, pub_name  from publishers ", conn);
+            tcmd = new SqlCommand("select pub_id pid, pub_name from publishers ", conn);
             tDA = new SqlDataAdapter(tcmd);
             tDT = new DataTable();
             tDA.Fill(tDT);
@@ -132,10 +132,14 @@ namespace Day13
 
                 else if(dr.RowState == DataRowState.Deleted)
                 {
+                    Trace.WriteLine(dr["title_id", DataRowVersion.Original]);
                     updateCommand =
-                       new SqlCommand("delete from titles where title_id = @a", conn);
+                       new SqlCommand(
+                                      "delete from titles where title_id = @a", conn);
                     updateCommand.Parameters.Add("@a", SqlDbType.VarChar);
-                    updateCommand.Parameters["@a"].Value = dr["title_id"];
+                    updateCommand.Parameters["@a"].Value = dr["title_id", DataRowVersion.Original];
+                    //BSrc.Remove(BSrc.Current);
+
 
                     SaveDA = new SqlDataAdapter(updateCommand);
                     SaveDA.DeleteCommand = updateCommand;

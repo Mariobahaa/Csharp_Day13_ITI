@@ -32,13 +32,7 @@ namespace Day13
             this.title_id = new System.Windows.Forms.TextBox();
             this.type = new System.Windows.Forms.TextBox();
             this.title = new System.Windows.Forms.TextBox();
-            this.publisher = new System.Windows.Forms.TextBox();
-            this.price = new System.Windows.Forms.TextBox();
-            this.advance = new System.Windows.Forms.TextBox();
-            this.royalty = new System.Windows.Forms.TextBox();
-            this.sales = new System.Windows.Forms.TextBox();
             this.notes = new System.Windows.Forms.TextBox();
-            this.pubDate = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,6 +43,17 @@ namespace Day13
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.price = new System.Windows.Forms.NumericUpDown();
+            this.advance = new System.Windows.Forms.NumericUpDown();
+            this.royalty = new System.Windows.Forms.NumericUpDown();
+            this.sales = new System.Windows.Forms.NumericUpDown();
+            this.pubDate = new System.Windows.Forms.DateTimePicker();
+            ((System.ComponentModel.ISupportInitialize)(this.price)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.royalty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sales)).BeginInit();
             this.SuspendLayout();
             // 
             // title_id
@@ -72,54 +77,12 @@ namespace Day13
             this.title.Size = new System.Drawing.Size(302, 27);
             this.title.TabIndex = 2;
             // 
-            // publisher
-            // 
-            this.publisher.Location = new System.Drawing.Point(123, 139);
-            this.publisher.Name = "publisher";
-            this.publisher.Size = new System.Drawing.Size(302, 27);
-            this.publisher.TabIndex = 3;
-            // 
-            // price
-            // 
-            this.price.Location = new System.Drawing.Point(123, 172);
-            this.price.Name = "price";
-            this.price.Size = new System.Drawing.Size(302, 27);
-            this.price.TabIndex = 4;
-            // 
-            // advance
-            // 
-            this.advance.Location = new System.Drawing.Point(123, 205);
-            this.advance.Name = "advance";
-            this.advance.Size = new System.Drawing.Size(302, 27);
-            this.advance.TabIndex = 5;
-            // 
-            // royalty
-            // 
-            this.royalty.Location = new System.Drawing.Point(123, 238);
-            this.royalty.Name = "royalty";
-            this.royalty.Size = new System.Drawing.Size(302, 27);
-            this.royalty.TabIndex = 6;
-            // 
-            // sales
-            // 
-            this.sales.Location = new System.Drawing.Point(123, 271);
-            this.sales.Name = "sales";
-            this.sales.Size = new System.Drawing.Size(302, 27);
-            this.sales.TabIndex = 7;
-            // 
             // notes
             // 
             this.notes.Location = new System.Drawing.Point(123, 304);
             this.notes.Name = "notes";
             this.notes.Size = new System.Drawing.Size(302, 27);
             this.notes.TabIndex = 8;
-            // 
-            // pubDate
-            // 
-            this.pubDate.Location = new System.Drawing.Point(123, 337);
-            this.pubDate.Name = "pubDate";
-            this.pubDate.Size = new System.Drawing.Size(302, 27);
-            this.pubDate.TabIndex = 9;
             // 
             // Label1
             // 
@@ -174,7 +137,6 @@ namespace Day13
             this.label6.Size = new System.Drawing.Size(66, 20);
             this.label6.TabIndex = 15;
             this.label6.Text = "Advance";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -212,11 +174,95 @@ namespace Day13
             this.label10.TabIndex = 19;
             this.label10.Text = "Pub. Date";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(123, 139);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(302, 28);
+            this.comboBox1.TabIndex = 20;
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.Lime;
+            this.btnSave.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(123, 370);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(302, 44);
+            this.btnSave.TabIndex = 21;
+            this.btnSave.Text = "Save Changes";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // price
+            // 
+            this.price.Location = new System.Drawing.Point(123, 173);
+            this.price.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.price.Name = "price";
+            this.price.Size = new System.Drawing.Size(302, 27);
+            this.price.TabIndex = 22;
+            // 
+            // advance
+            // 
+            this.advance.Location = new System.Drawing.Point(123, 205);
+            this.advance.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.advance.Name = "advance";
+            this.advance.Size = new System.Drawing.Size(302, 27);
+            this.advance.TabIndex = 23;
+            // 
+            // royalty
+            // 
+            this.royalty.Location = new System.Drawing.Point(123, 238);
+            this.royalty.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.royalty.Name = "royalty";
+            this.royalty.Size = new System.Drawing.Size(302, 27);
+            this.royalty.TabIndex = 24;
+            this.royalty.ValueChanged += new System.EventHandler(this.royalty_ValueChanged);
+            // 
+            // sales
+            // 
+            this.sales.Location = new System.Drawing.Point(123, 271);
+            this.sales.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.sales.Name = "sales";
+            this.sales.Size = new System.Drawing.Size(302, 27);
+            this.sales.TabIndex = 25;
+            // 
+            // pubDate
+            // 
+            this.pubDate.Location = new System.Drawing.Point(123, 337);
+            this.pubDate.Name = "pubDate";
+            this.pubDate.Size = new System.Drawing.Size(302, 27);
+            this.pubDate.TabIndex = 26;
+            // 
             // DV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 474);
+            this.ClientSize = new System.Drawing.Size(460, 521);
+            this.Controls.Add(this.pubDate);
+            this.Controls.Add(this.sales);
+            this.Controls.Add(this.royalty);
+            this.Controls.Add(this.advance);
+            this.Controls.Add(this.price);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -227,19 +273,17 @@ namespace Day13
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Label1);
-            this.Controls.Add(this.pubDate);
             this.Controls.Add(this.notes);
-            this.Controls.Add(this.sales);
-            this.Controls.Add(this.royalty);
-            this.Controls.Add(this.advance);
-            this.Controls.Add(this.price);
-            this.Controls.Add(this.publisher);
             this.Controls.Add(this.title);
             this.Controls.Add(this.type);
             this.Controls.Add(this.title_id);
             this.Name = "DV";
             this.Text = "DV";
             this.Load += new System.EventHandler(this.DV_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.price)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.royalty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,13 +294,7 @@ namespace Day13
         private System.Windows.Forms.TextBox title_id;
         private System.Windows.Forms.TextBox type;
         private System.Windows.Forms.TextBox title;
-        private System.Windows.Forms.TextBox publisher;
-        private System.Windows.Forms.TextBox price;
-        private System.Windows.Forms.TextBox advance;
-        private System.Windows.Forms.TextBox royalty;
-        private System.Windows.Forms.TextBox sales;
         private System.Windows.Forms.TextBox notes;
-        private System.Windows.Forms.TextBox pubDate;
         private System.Windows.Forms.Label Label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -267,5 +305,12 @@ namespace Day13
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.NumericUpDown price;
+        private System.Windows.Forms.NumericUpDown advance;
+        private System.Windows.Forms.NumericUpDown royalty;
+        private System.Windows.Forms.NumericUpDown sales;
+        private System.Windows.Forms.DateTimePicker pubDate;
     }
 }
